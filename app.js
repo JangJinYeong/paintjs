@@ -9,6 +9,8 @@ canvas.height = 700
 
 ctx.strokeStyle = 'black'
 ctx.lineWidth = '2.5'
+ctx.fillStyle = 'white'
+ctx.fillRect(0, 0, canvas.width, canvas.height)
 
 let painting = false
 let filling = false
@@ -38,11 +40,6 @@ function onMouseMove(event) {
   }
 }
 
-function handleColorClick(event) {
-  const color = event.target.style.backgroundColor
-  ctx.strokeStyle = color
-}
-
 function onMouseUp(event) {
   stopPainting()
 }
@@ -54,6 +51,7 @@ function onMouseLeave(event) {
 function handleChangeColor(event) {
   const color = event.target.style.backgroundColor
   ctx.strokeStyle = color
+  ctx.fillStyle = color
 }
 
 function handleRangeChange(event) {
@@ -71,11 +69,18 @@ function handleModeChange(event) {
   }
 }
 
+function handleCanvasClick() {
+  if (filling) {
+    ctx.fillRect(0, 0, canvas.width, canvas.height)
+  }
+}
+
 if (canvas) {
   canvas.addEventListener('mousemove', onMouseMove)
   canvas.addEventListener('mousedown', onMouseDown)
   canvas.addEventListener('mouseup', onMouseUp)
   canvas.addEventListener('mouseleave', onMouseLeave)
+  canvas.addEventListener('click', handleCanvasClick)
 }
 
 colors.forEach((color) => {
