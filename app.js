@@ -21,7 +21,9 @@ function onMouseDown(event) {
   painting = true
 }
 
-function startPainting() {}
+function startPainting() {
+  painting = true
+}
 
 function onMouseMove(event) {
   const x = event.offsetX
@@ -34,6 +36,11 @@ function onMouseMove(event) {
     ctx.lineTo(x, y)
     ctx.stroke()
   }
+}
+
+function handleColorClick(event) {
+  const color = event.target.style.backgroundColor
+  ctx.strokeStyle = color
 }
 
 function onMouseUp(event) {
@@ -53,6 +60,7 @@ function handleRangeChange(event) {
   const size = event.target.value
   ctx.lineWidth = size
 }
+
 function handleModeChange(event) {
   if (filling === true) {
     filling = false
