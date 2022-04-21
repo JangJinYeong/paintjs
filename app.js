@@ -3,6 +3,7 @@ const ctx = canvas.getContext('2d')
 const colors = document.querySelectorAll('.jsColor')
 const range = document.querySelector('.controls__range input')
 const mode = document.querySelector('#jsMode')
+const save = document.querySelector('#jsSave')
 
 canvas.width = 700
 canvas.height = 700
@@ -75,22 +76,31 @@ function handleCanvasClick() {
   }
 }
 
+function handleCM(event) {
+  event.preventDefault()
+}
+
+function handleSaveClick() {
+  const image = canvas.toDataURL()
+  const link = document.createElement('a')
+  link.href = image
+  link.download = 'PaintJS'
+  link.click()
+}
+
 if (canvas) {
   canvas.addEventListener('mousemove', onMouseMove)
   canvas.addEventListener('mousedown', onMouseDown)
   canvas.addEventListener('mouseup', onMouseUp)
   canvas.addEventListener('mouseleave', onMouseLeave)
   canvas.addEventListener('click', handleCanvasClick)
+  canvas.addEventListener('contextmenu', handleCM)
 }
 
 colors.forEach((color) => {
   color.addEventListener('click', handleChangeColor)
 })
 
-if (range) {
-  range.addEventListener('input', handleRangeChange)
-}
-
-if (mode) {
-  mode.addEventListener('click', handleModeChange)
-}
+range?.addEventListener('input', handleRangeChange)
+mode?.addEventListener('click', handleModeChange)
+save?.addEventListener('click', handleSaveClick)
